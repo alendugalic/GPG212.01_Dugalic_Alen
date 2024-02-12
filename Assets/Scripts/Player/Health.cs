@@ -14,6 +14,7 @@ public class Health : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
+        //need to add the animation (using same as first game)
         currentHealth -= damage;
 
         if (currentHealth <= 0.0f)
@@ -21,10 +22,10 @@ public class Health : MonoBehaviour
             Die();
         }
     }
-
     private void Die()
     {
         Destroy(gameObject);
+        LevelManager.manager.GameOver();
         //add death animations or other logic here
     }
     public float GetCurrentHealth()

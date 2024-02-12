@@ -8,7 +8,8 @@ public class FireBreath : MonoBehaviour
     private Camera mainCam;
     private Rigidbody2D rb;
     public float force;
-    public float damage = 1f;
+    [SerializeField] private float damage;
+    [SerializeField] private string damageType = "Fire";
     // Start is called before the first frame update
     void Start()
     {
@@ -30,11 +31,18 @@ public class FireBreath : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         Enemy enemy = other.GetComponent<Enemy>();
+
         if (enemy != null)
         {
-            float finalDamage = enemy.isVulnerableToFire ? damage * 2 : damage;
+            float finalDamage = CalculateFinalDamage(damage, damageType, enemy);
             enemy.TakeDamage(finalDamage);
             Destroy(gameObject);
         }
+    }
+
+    private float CalculateFinalDamage(float baseDamage, string damageType, Enemy enemy)
+    {
+        float bonusMultiplier = enemy.GetWeaknessMultiplier(damageType);
+        return baseDamage * bonusMultiplier;
     }
 }

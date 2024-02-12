@@ -6,34 +6,44 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    [SerializeField] public float damage;
-    [SerializeField] public bool isVulnerableToFire = false;
-    [SerializeField] public bool isVulnerableToIce = false;
-    [SerializeField] public bool isVulnerableToElectric = false;
+    [SerializeField] private float baseDamage;
+    [SerializeField] private Dictionary<string, float> weaknesses = new Dictionary<string, float>();
+
+    private Health health;
+
     private void Start()
     {
-        Health health = GetComponent<Health>();
-    }
-    public void TakeDamage(float damage)
-    {
-        float finalDamage = isVulnerableToFire ? damage * 2 : damage;
-        health -= finalDamage;
+        health = GetComponent<Health>();
 
-        if (health <= 0)
+        weaknesses["Fire"] = 2.0f;
+        weaknesses["Ice"] = 4f;
+        weaknesses["Electric"] = 3f;
+    }
+
+    public void TakeDamage(float incomingDamage, string damageType)
+    {
+        float finalDamage = CalculateFinalDamage(incomingDamage, damageType);
+        health.TakeDamage(finalDamage);
+
+        if (health.GetCurrentHealth() <= 0)
         {
             Die();
         }
     }
-    private void Die()
-    {  
-        Destroy(gameObject);
-    }
-    private void OnTriggerEnter2D(Collider2D other)
+    public float GetWeaknessMultiplier(string damageType)
     {
-        If(isVulnerableToFire = true)
-        {
+        return weaknesses.ContainsKey(damageType) ? weaknesses[damageType] : 1.0f;
+    }
 
 
-        }
+    private float CalculateFinalDamage(float incomingDamage, string damageType)
+    {
+        float bonusMultiplier = weaknesses.ContainsKey(damageType) ? weaknesses[damageType] : 1.0f;
+        return incomingDamage * bonusMultiplier;
+    }
+
+    private void Die()
+    {
+        Destroy(gameObject);
     }
 }

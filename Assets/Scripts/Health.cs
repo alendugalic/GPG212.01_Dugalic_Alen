@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Health : MonoBehaviour
 {
-   [SerializeField] public float maxHealth;
+    [SerializeField] public float maxHealth;
     private float currentHealth;
 
     private void Start()
@@ -12,14 +12,23 @@ public class Health : MonoBehaviour
         currentHealth = maxHealth;
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(float damage)
     {
         currentHealth -= damage;
 
-        if (currentHealth <= 0)
+        if (currentHealth <= 0.0f)
         {
-            Destroy(gameObject);
-            // animation goes here if time
+            Die();
         }
+    }
+
+    private void Die()
+    {
+        Destroy(gameObject);
+        //add death animations or other logic here
+    }
+    public float GetCurrentHealth()
+    {
+        return currentHealth;
     }
 }

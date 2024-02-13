@@ -14,7 +14,7 @@ public class EnemySpawner : MonoBehaviour
     private IEnumerator Spawner()
     {
         WaitForSeconds wait = new WaitForSeconds(spawnRate);
-        while (true)
+        while (FindAnyObjectByType<Health>().GetCurrentHealth() > 0)
         {
             yield return wait;
             int rand = Random.Range(0, enemyPrefabs.Length);

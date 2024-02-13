@@ -1,4 +1,6 @@
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -17,6 +19,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float iceCooldown;
     [SerializeField] private float electricCooldown;
 
+    public Slider iceBreathSlider;
+    public Slider electricBreathSlider;
+   
+
     private void Start()
     {
         mainCam = Camera.main;
@@ -34,63 +40,55 @@ public class PlayerController : MonoBehaviour
 
         FireBreath();
         IceBreath();
+        iceBreathSlider.value = iceTimer;
         ElectricBreath();
+        electricBreathSlider.value = electricTimer;
+
     }
 
     private void FireBreath()
     {
-        if (Input.GetKeyDown(KeyCode.Q) && canFire && fireTimer >= fireCooldown)
+        if (Input.GetKeyDown(KeyCode.Q) && fireTimer >= fireCooldown)
         {
-            canFire = false;
             Instantiate(fireBall, mouthTransform.position, Quaternion.identity);
             fireTimer = 0f;
         }
 
-        if (!canFire)
+        if (fireTimer < fireCooldown)
         {
             fireTimer += Time.deltaTime;
-            if (fireTimer >= fireCooldown)
-            {
-                canFire = true;
-            }
         }
     }
 
     private void IceBreath()
     {
-        if (Input.GetKeyDown(KeyCode.W) && canFire && iceTimer >= iceCooldown)
+        if (Input.GetKeyDown(KeyCode.W) && iceTimer >= iceCooldown)
         {
-            canFire = false;
             Instantiate(iceBall, mouthTransform.position, Quaternion.identity);
             iceTimer = 0f;
         }
 
-        if (!canFire)
+        if (iceTimer < iceCooldown)
         {
             iceTimer += Time.deltaTime;
-            if (iceTimer >= iceCooldown)
-            {
-                canFire = true;
-            }
         }
     }
 
     private void ElectricBreath()
     {
-        if (Input.GetKeyDown(KeyCode.E) && canFire && electricTimer >= electricCooldown)
+        if (Input.GetKeyDown(KeyCode.E) && electricTimer >= electricCooldown)
         {
-            canFire = false;
             Instantiate(electricBall, mouthTransform.position, Quaternion.identity);
             electricTimer = 0f;
         }
 
-        if (!canFire)
+        if (electricTimer < electricCooldown)
         {
             electricTimer += Time.deltaTime;
-            if (electricTimer >= electricCooldown)
-            {
-                canFire = true;
-            }
         }
+    }
+    public void CooldownDisp()
+    {
+
     }
 }

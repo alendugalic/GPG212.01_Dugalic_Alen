@@ -10,6 +10,7 @@ public class Enemies : MonoBehaviour
    [SerializeField] public int scoreValue;
    [SerializeField] private int damageAmount;
     private Transform targetEggs;
+
     private void Start()
     {
         targetEggs = GameObject.FindGameObjectWithTag("EggNest").transform;
@@ -23,7 +24,9 @@ public class Enemies : MonoBehaviour
     void Update()
     {
         MoveEnemy();
+        // if player heath is 0 destroy 
     }
+
     void MoveEnemy()
     {
         if(targetEggs != null)
@@ -37,6 +40,7 @@ public class Enemies : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
     public void TakeDamage(int damage)
     {
         health -= damage;
@@ -46,6 +50,7 @@ public class Enemies : MonoBehaviour
             LevelManager.manager.IncreaseScore(scoreValue);
         }
     }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("EggNest"))
@@ -53,6 +58,7 @@ public class Enemies : MonoBehaviour
             DamageTarget(other.gameObject);
  
             Destroy(gameObject);
+            Debug.Log("Ive hit the target");
         }
     }
 
@@ -62,6 +68,16 @@ public class Enemies : MonoBehaviour
         if (targetHealth != null)
         {
             targetHealth.TakeDamage(damageAmount);
+            if (targetHealth.GetCurrentHealth() <= 0)
+            {
+                Enemies[] enemies = FindObjectsByType<Enemies>(FindObjectsSortMode.None);
+
+                foreach(Enemies enemy in enemies)
+                {
+                    Destroy(enemy.gameObject);
+                }
+            }
         }
     }
+    //if health is 0 destroy
 }

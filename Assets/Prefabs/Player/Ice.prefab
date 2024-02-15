@@ -128,8 +128,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   force: 4
   baseDamage: 1
-  bonusDamageMultiplier: 4
+  bonusDamageMultiplier: 5
   targetTag: DragonEnemy
+  slowSpeed: 0.5
 --- !u!58 &7363048578447236495
 CircleCollider2D:
   m_ObjectHideFlags: 0

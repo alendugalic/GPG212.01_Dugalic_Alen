@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class LevelManager : MonoBehaviour
 {
@@ -13,9 +14,15 @@ public class LevelManager : MonoBehaviour
     public TextMeshProUGUI highscoreText;
     public TextMeshProUGUI gameTimer;
 
+    [SerializeField] private Button mainMenuButton;
+
     private void Awake()
     {
         manager = this;
+        mainMenuButton.onClick.AddListener(() =>
+        {
+            Loader.Load(Loader.Scene.MainMenu);
+        });
     }
     private void Update()
     {

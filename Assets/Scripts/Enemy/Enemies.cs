@@ -24,7 +24,6 @@ public class Enemies : MonoBehaviour
     void Update()
     {
         MoveEnemy();
-        // if player heath is 0 destroy 
     }
 
     void MoveEnemy()
@@ -79,5 +78,8 @@ public class Enemies : MonoBehaviour
             }
         }
     }
-    //if health is 0 destroy
+    public void ApplySlow(float slow)
+    {
+        speed *= slow;
+    }
 }

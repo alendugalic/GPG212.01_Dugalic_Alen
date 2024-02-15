@@ -49,9 +49,6 @@ public class ElectricBreath : MonoBehaviour
             {
                 enemy.TakeDamage(totalDamage);
             }
-
-            // Destroy the FireBreath object after hitting an enemy
-            Destroy(gameObject);
         }
     }
 }

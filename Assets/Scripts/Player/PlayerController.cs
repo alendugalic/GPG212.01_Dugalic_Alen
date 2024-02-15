@@ -21,8 +21,9 @@ public class PlayerController : MonoBehaviour
 
     public Slider iceBreathSlider;
     public Slider electricBreathSlider;
-   
-
+    public AudioSource breathAudio;
+    public AudioClip fireSfx, iceSfx, elecSfx;
+ 
     private void Start()
     {
         mainCam = Camera.main;
@@ -52,6 +53,8 @@ public class PlayerController : MonoBehaviour
         {
             Instantiate(fireBall, mouthTransform.position, Quaternion.identity);
             fireTimer = 0f;
+            breathAudio.clip = fireSfx;
+            breathAudio.Play();
         }
 
         if (fireTimer < fireCooldown)
@@ -66,6 +69,8 @@ public class PlayerController : MonoBehaviour
         {
             Instantiate(iceBall, mouthTransform.position, Quaternion.identity);
             iceTimer = 0f;
+            breathAudio.clip = iceSfx;
+            breathAudio.Play();
         }
 
         if (iceTimer < iceCooldown)
@@ -80,6 +85,8 @@ public class PlayerController : MonoBehaviour
         {
             Instantiate(electricBall, mouthTransform.position, Quaternion.identity);
             electricTimer = 0f;
+            breathAudio.clip = elecSfx;
+            breathAudio.Play();
         }
 
         if (electricTimer < electricCooldown)

@@ -8,9 +8,6 @@ public class FireBreath : MonoBehaviour
     private Camera mainCam;
     private Rigidbody2D rb;
     public float force;
-    //[SerializeField] private float damage;
-    //[SerializeField] private string damageType = "Fire";
-
     public int baseDamage = 1;
    [SerializeField] public float bonusDamageMultiplier = 2.0f;
     public string targetTag = "Knight";
@@ -53,24 +50,4 @@ public class FireBreath : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    // Update is called once per frame
-
-    //private void OnTriggerEnter2D(Collider2D other)
-    //{
-    //    Enemy enemy = other.GetComponent<Enemy>();
-
-    //    if (enemy != null)
-    //    {
-    //        float finalDamage = CalculateFinalDamage(damage, damageType, enemy);
-    //        enemy.TakeDamage(finalDamage, damageType);
-    //        Destroy(gameObject);
-    //    }
-    //}
-
-    //private float CalculateFinalDamage(float baseDamage, string damageType, Enemy enemy)
-    //{
-    //    float bonusMultiplier = enemy.GetWeaknessMultiplier(damageType);
-    //    return baseDamage * bonusMultiplier;
-    //}
-
 }
